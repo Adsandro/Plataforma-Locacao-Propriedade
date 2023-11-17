@@ -1,4 +1,5 @@
 package menu;
+import propriedade.Avaliacao;
 import propriedade.Reserva;
 import usuario.SessaoUsuario;
 import usuario.Usuario;
@@ -10,9 +11,6 @@ public class MenuUsuario{
     public static void abrirMenuUsuario(List<Propriedade> listaPropriedades){
 
         Scanner scanner = new Scanner(System.in);
-        Usuario usuarioLogado = SessaoUsuario.getUsuarioLogado();
-        System.out.println(usuarioLogado.getNome());
-
 
         System.out.println("Selecione uma opção\n1- Vizualizar propriedades disponiveis\n2- Alugar propriedade\n3- Avaliar propriedades alugadas");
         int opcao1 = scanner.nextInt();
@@ -22,16 +20,18 @@ public class MenuUsuario{
                 System.out.println("Fazer reserva? Digite 1");
                 int resposta = scanner.nextInt();
                 if(resposta == 1){
-                    Reserva.reservarPropriedade(listaPropriedades);
+                    Reserva.reservarPropriedade(listaPropriedades, SessaoUsuario.getUsuarioLogado());
                 }
                 else{
                     MenuUsuario.abrirMenuUsuario(listaPropriedades);
                 }
             case 2:
                 listarPropriedades(listaPropriedades);
-                Reserva.reservarPropriedade(listaPropriedades);
+                Reserva.reservarPropriedade(listaPropriedades, SessaoUsuario.getUsuarioLogado());
             case 3:
                 //Avalia propriedade
+                SessaoUsuario.getUsuarioLogado().listaReservaUsuario();
+                Avaliacao.avaliarPropriedade(listaPropriedades);
                 break;
             default:
                 System.out.println("Inválido");

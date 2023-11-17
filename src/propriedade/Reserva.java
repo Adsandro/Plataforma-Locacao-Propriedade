@@ -1,6 +1,7 @@
 package propriedade;
 
 import menu.MenuUsuario;
+import usuario.Usuario;
 
 import java.util.Scanner;
 import java.util.List;
@@ -8,54 +9,59 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.Period;
 
-public class Reserva{
+public class Reserva {
     private Propriedade propriedade;
     private String dtCheckin;
     private String dtCheckout;
-    private float custoTotal;
+    private double custoTotal;
 
-    public Reserva(Propriedade propriedade, String dtCheckin, String dtCheckout, float custoTotal ){
+    public Reserva(Propriedade propriedade, String dtCheckin, String dtCheckout, double custoTotal) {
         this.propriedade = propriedade;
         this.dtCheckin = dtCheckin;
         this.dtCheckout = dtCheckout;
         this.custoTotal = custoTotal;
     }
 
-    public static void reservarPropriedade(List<Propriedade> listaPropriedades){
+    public static void reservarPropriedade(List<Propriedade> listaPropriedades, Usuario usuario) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Digite o titulo da propriedade que deseja alugar");
         String propriedade = scanner.next();
 
+
         for (Propriedade listaPropriedade : listaPropriedades) {
             if (propriedade.equals(listaPropriedade.getTitulo())) {
+                if(listaPropriedade.isDisponivel()) {
+                    System.out.println("Digite a data de checkIn");
+                    String dtCheckin = scanner.next();
+                    System.out.println("Digite a data de checkOut");
+                    String dtCheckout = scanner.next();
+                    DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    LocalDate dataInicial = LocalDate.parse(dtCheckin);
+                    LocalDate dataFinal = LocalDate.parse(dtCheckout);
 
-                System.out.println("Digite a data de checkIn");
-                String dtCheckin = scanner.next();
-                System.out.println("Digite a data de checkOut");
-                String dtCheckout = scanner.next();
+                    String data1 = dataInicial.format(formato);
+                    String data2 = dataFinal.format(formato);
 
-                DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                LocalDate dataInicial = LocalDate.parse(dtCheckin);
-                LocalDate dataFinal = LocalDate.parse(dtCheckout);
+                    int diferenca = Period.between(dataInicial, dataFinal).getDays();
+                    double precoNoite = listaPropriedade.getPrec();
 
-                String data1 = dataInicial.format(formato);
-                String data2 = dataFinal.format(formato);
+                    double custoTotal = diferenca * precoNoite;
 
-                int diferenca = Period.between(dataInicial, dataFinal).getDays();
+                    Reserva reserva = new Reserva(listaPropriedade, dtCheckin, dtCheckout, custoTotal);
+                    usuario.pedidoDeReserva(reserva);
+                    listaPropriedade.mudaDisponibilidade();
 
-                // custoTotal = diferenca * precoNoite(TRAZER DE PROPRIEDADE)
-
-                System.out.println(diferenca);
-                listaPropriedade.mudaDisponibilidade();
+                    System.out.println("Reserva realizada com sucesso!");
+                    MenuUsuario.abrirMenuUsuario(listaPropriedades);
+                }
+                else {
+                    System.out.println("Propriedade não encontrada, por favor verificar se o nome esta correto");
+                    MenuUsuario.abrirMenuUsuario(listaPropriedades);
+                }
             }
-
         }
-        System.out.println("Propriedade não encontrada, por favor verificar se o nome esta correto");
-        MenuUsuario.abrirMenuUsuario(listaPropriedades);
     }
-
-    public Propriedade getNomePropriedade(){
+    public Propriedade getNomePropriedade() {
         return propriedade;
     }
-
 }

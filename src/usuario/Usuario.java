@@ -48,14 +48,15 @@ public class Usuario{
         for(int i = 0; i<propriedadesDoUsuario.size();i++){
             System.out.printf("----------------%d------------------\n", i + 1);
             System.out.println(propriedadesDoUsuario.get(i).getDados());
-            System.out.printf("------------------------------------\n");
+            propriedadesDoUsuario.get(i).listaAvaliacoes();
+            System.out.println("------------------------------------");
             // adicionar a media de avaliações
         }
     }
 
     public void propridadesAlugadas(){
         for(int i = 0; i<propriedadesDoUsuario.size();i++){
-            if(propriedadesDoUsuario.get(i).isDisponivel() == false) {
+            if(!propriedadesDoUsuario.get(i).isDisponivel()) {
                 System.out.println("Propriedades alugadas");
                 System.out.printf("----------------%d------------------\n", i + 1);
                 System.out.println(propriedadesDoUsuario.get(i).getDados());
@@ -73,18 +74,13 @@ public class Usuario{
         reservaDoUsuario.add(reserva);
     }
 
-    public void listaReserva(){
-        for(int i = 0; i<reservaDoUsuario.size();i++){
-            //Listar reservas
-            //System.out.println(reservaDoUsuario.get(i).getNomePropriedade());
+    public void listaReservaUsuario(){
+        int i = 1;
+        System.out.println("Propriedades a serem avaliadas: ");
+        for (Reserva reserva : reservaDoUsuario) {
+            System.out.print(i +"- ");
+            System.out.println(reserva.getNomePropriedade().getTitulo());
+            i += 1;
         }
     }
-
-    public void cadastroDeAvaliacao(Avaliacao avaliacao){
-        //Fazer avaliação
-    }
-
-
-
-
 }

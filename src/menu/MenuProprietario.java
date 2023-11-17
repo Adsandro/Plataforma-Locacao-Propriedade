@@ -17,7 +17,6 @@ public class MenuProprietario{
                 Cadastro.cadastrarPropriedade(SessaoUsuario.getUsuarioLogado(), listaPropriedades);
                 break;
             case 2:
-                //Lista de propriedadesUsuario
                 SessaoUsuario.getUsuarioLogado().listaPropriedadeUsuario();
 
                 //Media de avaliações

@@ -11,7 +11,7 @@ public class Propriedade{
     private float precoNoite;
     private usuario.Usuario proprietario;
     private boolean disponivel = true;
-    private List<Avaliacao> avaliacaoPropriedade;
+    private List<Avaliacao> avaliacoesDaPropriedade;
 
     public Propriedade(String titulo, String descricao, String localizacao, int capacidade, float precoNoite){
         this.titulo = titulo;
@@ -21,7 +21,7 @@ public class Propriedade{
         this.precoNoite = precoNoite;
         this.proprietario = proprietario;
         this.disponivel = disponivel;
-        this.avaliacaoPropriedade = new ArrayList<>();
+        this.avaliacoesDaPropriedade = new ArrayList<>();
     }
 
     public String getTitulo(){
@@ -45,13 +45,19 @@ public class Propriedade{
     }
 
     public void avaliaPropriedade(Avaliacao avaliacao){
-        //Avalia propriedade
+        avaliacoesDaPropriedade.add(avaliacao);
     }
 
 
     public void listaAvaliacoes(){
-        //Lista as avaliações desta propriedade
+        float mediaAvaliacoes;
+        float nota = 0;
+        for (Avaliacao avaliacao : avaliacoesDaPropriedade) {
+            System.out.println(avaliacao.getDados());
+            nota += avaliacao.getPontuacao();
+        }
+        mediaAvaliacoes = nota/avaliacoesDaPropriedade.size();
+        System.out.println("Média de avaliações: " + mediaAvaliacoes);
     }
-
-
 }
+
