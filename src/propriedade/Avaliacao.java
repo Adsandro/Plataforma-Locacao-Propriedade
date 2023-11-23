@@ -6,35 +6,35 @@ import usuario.Usuario;
 import java.util.List;
 import java.util.Scanner;
 
-public class Avaliacao{
+public class Avaliacao {
     private Propriedade propriedade;
     private float pontuacao;
     private String comentario;
 
-    public Avaliacao(Propriedade propriedade, float pontuacao, String comentario){
+    public Avaliacao(Propriedade propriedade, float pontuacao, String comentario) {
         this.propriedade = propriedade;
         this.pontuacao = pontuacao;
         this.comentario = comentario;
     }
 
-    public String getDados(){
-        return getPropriedade()+ "\n" +getPontuacao()+ "\n" + getComentario();
+    public String getDados() {
+        return getPropriedade() + "\n" + getPontuacao() + "\n" + getComentario();
     }
 
     public Propriedade getPropriedade() {
         return propriedade;
     }
 
-    public float getPontuacao(){
+    public float getPontuacao() {
         return pontuacao;
     }
 
-    public String getComentario(){
+    public String getComentario() {
         return comentario;
     }
 
 
-    public static void avaliarPropriedade(List<Propriedade> listaPropriedades, List<Usuario> listaUsuarios){
+    public static void avaliarPropriedade(List<Propriedade> listaPropriedades, List<Usuario> listaUsuarios) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Digite o titulo da propriedade que deseja alugar");
         String propriedade = scanner.next();
