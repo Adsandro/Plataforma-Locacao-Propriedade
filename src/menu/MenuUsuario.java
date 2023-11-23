@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class MenuUsuario{
-    public static void abrirMenuUsuario(List<Propriedade> listaPropriedades){
+    public static void abrirMenuUsuario(List<Propriedade> listaPropriedades, List<Usuario> listaUsuarios){
 
         Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Selecione uma opção\n1- Vizualizar propriedades disponiveis\n2- Alugar propriedade\n3- Avaliar propriedades alugadas");
+        Reserva.implementaReserva(listaPropriedades);
+        System.out.println("Selecione uma opção\n1- Vizualizar propriedades disponiveis\n2- Alugar propriedade\n3- Avaliar propriedades alugadas\n4- Voltar");
         int opcao1 = scanner.nextInt();
         switch (opcao1) {
             case 1:
@@ -20,22 +20,25 @@ public class MenuUsuario{
                 System.out.println("Fazer reserva? Digite 1");
                 int resposta = scanner.nextInt();
                 if(resposta == 1){
-                    Reserva.reservarPropriedade(listaPropriedades, SessaoUsuario.getUsuarioLogado());
+                    Reserva.reservarPropriedade(listaPropriedades, SessaoUsuario.getUsuarioLogado(), listaUsuarios);
                 }
                 else{
-                    MenuUsuario.abrirMenuUsuario(listaPropriedades);
+                    MenuUsuario.abrirMenuUsuario(listaPropriedades, listaUsuarios);
                 }
             case 2:
                 listarPropriedades(listaPropriedades);
-                Reserva.reservarPropriedade(listaPropriedades, SessaoUsuario.getUsuarioLogado());
+                Reserva.reservarPropriedade(listaPropriedades, SessaoUsuario.getUsuarioLogado(), listaUsuarios);
             case 3:
                 //Avalia propriedade
                 SessaoUsuario.getUsuarioLogado().listaReservaUsuario();
-                Avaliacao.avaliarPropriedade(listaPropriedades);
+                Avaliacao.avaliarPropriedade(listaPropriedades, listaUsuarios);
+                break;
+            case 4 :
+                Menu.abrirMenu(listaUsuarios,listaPropriedades);
                 break;
             default:
                 System.out.println("Inválido");
-                MenuUsuario.abrirMenuUsuario(listaPropriedades);;
+                MenuUsuario.abrirMenuUsuario(listaPropriedades, listaUsuarios);;
         }
     }
 

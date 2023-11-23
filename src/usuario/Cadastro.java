@@ -1,5 +1,8 @@
 package usuario;
 
+import menu.Menu;
+import menu.MenuProprietario;
+import menu.MenuUsuario;
 import propriedade.Propriedade;
 
 import java.util.List;
@@ -7,9 +10,9 @@ import java.util.Scanner;
 
 public class Cadastro {
 
-    public static void cadastrarUsuario(List<Usuario> listaUsuarios) {
+    public static Usuario cadastrarUsuario() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("1-usuario.Cadastro de usuario.Usuario");
+        System.out.println("1-Cadastro de usuario");
 
         System.out.println("Digite o seu nome");
         String nome = scanner.next();
@@ -18,11 +21,11 @@ public class Cadastro {
         System.out.println("Digite uma senha");
         String senha = scanner.next();
 
-        listaUsuarios.add(new Usuario(nome, email, senha));
-
+        return new Usuario(nome, email, senha);
     }
 
     public static boolean login(List<Usuario> listaUsuarios) {
+
         Scanner scanner = new Scanner(System.in);
         boolean teste = false;
 
@@ -31,11 +34,13 @@ public class Cadastro {
         System.out.println("Digite seu senha");
         String senha = scanner.next();
 
-        for (int i = 0; i < listaUsuarios.size(); i++) {
-            if (listaUsuarios.get(i).getEmail().equals(email) && listaUsuarios.get(i).getSenha().equals(senha)) {
+        for (Usuario listaUsuario : listaUsuarios) {
+            System.out.print(listaUsuario.getDados());
+            if (listaUsuario.getEmail().equals(email) && listaUsuario.getSenha().equals(senha)) {
                 teste = true;
-                Usuario usuarioLogado = listaUsuarios.get(i);
-                SessaoUsuario.setUsuarioLogado(usuarioLogado);
+
+                System.out.print(listaUsuario.getDados());
+                SessaoUsuario.setUsuarioLogado(listaUsuario);
 
             }
         }
@@ -45,7 +50,7 @@ public class Cadastro {
 
 
     @SuppressWarnings("empty-statement")
-    public static void cadastrarPropriedade(Usuario usuario, List<Propriedade> listaPropriedades) {
+    public static void cadastrarPropriedade(Usuario usuario, List<Propriedade> listaPropriedades, List<Usuario> listaUsuarios) {
 
 
         Scanner scanner = new Scanner(System.in);
@@ -66,7 +71,7 @@ public class Cadastro {
         Propriedade propriedade = new Propriedade(titulo, descricao, localizacao, capacidade, precoNoite);
         usuario.cadastroPropriedadeUsuario(propriedade);
         listaPropriedades.add(propriedade);
-
+        MenuProprietario.abrirMenuProprietario(listaPropriedades, listaUsuarios);
 
     }
 }

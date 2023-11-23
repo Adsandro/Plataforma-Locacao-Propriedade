@@ -1,6 +1,7 @@
 package propriedade;
 
 import menu.MenuUsuario;
+import usuario.Usuario;
 
 import java.util.List;
 import java.util.Scanner;
@@ -33,7 +34,7 @@ public class Avaliacao{
     }
 
 
-    public static void avaliarPropriedade(List<Propriedade> listaPropriedades){
+    public static void avaliarPropriedade(List<Propriedade> listaPropriedades, List<Usuario> listaUsuarios){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Digite o titulo da propriedade que deseja alugar");
         String propriedade = scanner.next();
@@ -46,11 +47,12 @@ public class Avaliacao{
 
                 Avaliacao avaliacao = new Avaliacao(listaPropriedade, nota, comentario);
                 listaPropriedade.avaliaPropriedade(avaliacao);
+                System.out.println(avaliacao.getPontuacao());
                 System.out.println("Avaliação concluida");
-                MenuUsuario.abrirMenuUsuario(listaPropriedades);
+                MenuUsuario.abrirMenuUsuario(listaPropriedades, listaUsuarios);
             }
         }
-        MenuUsuario.abrirMenuUsuario(listaPropriedades);
+        MenuUsuario.abrirMenuUsuario(listaPropriedades, listaUsuarios);
     }
 
 }

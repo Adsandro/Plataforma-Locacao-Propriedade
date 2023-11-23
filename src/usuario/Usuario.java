@@ -1,5 +1,6 @@
 package usuario;
 
+import menu.MenuProprietario;
 import propriedade.Avaliacao;
 import propriedade.Propriedade;
 import propriedade.Reserva;
@@ -44,13 +45,15 @@ public class Usuario{
         propriedadesDoUsuario.add(propriedade);
     }
 
-    public void listaPropriedadeUsuario(){
+    public void listaPropriedadeUsuario(List<Propriedade> listaPropriedades, List<Usuario> listaUsuarios){
         for(int i = 0; i<propriedadesDoUsuario.size();i++){
             System.out.printf("----------------%d------------------\n", i + 1);
             System.out.println(propriedadesDoUsuario.get(i).getDados());
             propriedadesDoUsuario.get(i).listaAvaliacoes();
             System.out.println("------------------------------------");
             // adicionar a media de avaliações
+            MenuProprietario.abrirMenuProprietario(listaPropriedades, listaUsuarios);
+            //voltar?
         }
     }
 
@@ -61,13 +64,9 @@ public class Usuario{
                 System.out.printf("----------------%d------------------\n", i + 1);
                 System.out.println(propriedadesDoUsuario.get(i).getDados());
                 System.out.println("------------------------------------");
-                return;
             }
 
         }
-        System.out.println("------------------------------------");
-        System.out.println("Você não tem nenhuma propriedade alugada ou ainda não cadastrou nenhuma.");
-        System.out.println("------------------------------------");
     }
 
     public void pedidoDeReserva(Reserva reserva){

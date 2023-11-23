@@ -12,38 +12,38 @@ import java.util.Scanner;
 
 public class Menu {
 
-    public static void abrirMenu() {
+    public static void abrirMenu(List<Usuario> listaUsuarios,List<Propriedade> listaPropriedades) {
         Scanner scanner = new Scanner(System.in);
 
-        List<Usuario> listaUsuarios = new ArrayList<>();
-        CopulaMenu.implementaUsuario(listaUsuarios);
-        List<Propriedade> listaPropriedades = new ArrayList<>();
-        CopulaMenu.implementaPropriedade(listaPropriedades, listaUsuarios);
+
+       ;
+        CopulaMenu.implementa(listaPropriedades, listaUsuarios);
 
         System.out.println("Selecione uma opção\n1- Cadastrar novo usuario\n2- Sou usuario\n3- Sou proprietario");
         int opcao = scanner.nextInt();
 
             switch (opcao) {
                 case 1:
-                    Cadastro.cadastrarUsuario(listaUsuarios);
+                    listaUsuarios.add(Cadastro.cadastrarUsuario());
+                    abrirMenu(listaUsuarios,listaPropriedades);
                     break;
                 case 2:
                     if (Cadastro.login(listaUsuarios)) {
-                        MenuUsuario.abrirMenuUsuario(listaPropriedades);
+                        MenuUsuario.abrirMenuUsuario(listaPropriedades, listaUsuarios);
                     } else {
                         System.out.println("Login incorreto");
-                        Menu.abrirMenu();
+                        Menu.abrirMenu(listaUsuarios,listaPropriedades);
                     }   break;
                 case 3:
                     if (Cadastro.login(listaUsuarios)){
-                        MenuProprietario.abrirMenuProprietario(listaPropriedades);
+                        MenuProprietario.abrirMenuProprietario(listaPropriedades, listaUsuarios);
                     } else {
                         System.out.println("Inválido");
-                        Menu.abrirMenu();
+                        Menu.abrirMenu(listaUsuarios,listaPropriedades);
                     }   break;
                 default:
                     System.out.println("Opção incorreta");
-                    Menu.abrirMenu();
+                    Menu.abrirMenu(listaUsuarios,listaPropriedades);
             }
     }
 }

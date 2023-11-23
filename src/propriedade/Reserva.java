@@ -22,7 +22,7 @@ public class Reserva {
         this.custoTotal = custoTotal;
     }
 
-    public static void reservarPropriedade(List<Propriedade> listaPropriedades, Usuario usuario) {
+    public static void reservarPropriedade(List<Propriedade> listaPropriedades, Usuario usuario, List<Usuario> listaUsuarios) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Digite o titulo da propriedade que deseja alugar");
         String propriedade = scanner.next();
@@ -52,16 +52,21 @@ public class Reserva {
                     listaPropriedade.mudaDisponibilidade();
 
                     System.out.println("Reserva realizada com sucesso!");
-                    MenuUsuario.abrirMenuUsuario(listaPropriedades);
+                    MenuUsuario.abrirMenuUsuario(listaPropriedades, listaUsuarios);
                 }
                 else {
                     System.out.println("Propriedade não encontrada, por favor verificar se o nome esta correto");
-                    MenuUsuario.abrirMenuUsuario(listaPropriedades);
+                    MenuUsuario.abrirMenuUsuario(listaPropriedades, listaUsuarios);
                 }
             }
         }
     }
     public Propriedade getNomePropriedade() {
         return propriedade;
+    }
+
+    public static void implementaReserva(List<Propriedade> listaPropriedades) {
+        Reserva reserva = new Reserva(listaPropriedades.get(0), "20-11-2023", "25-11-2023", 900.50f);
+        listaPropriedades.get(0).mudaDisponibilidade();
     }
 }
