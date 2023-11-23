@@ -30,7 +30,7 @@ public class Reserva {
 
         for (Propriedade listaPropriedade : listaPropriedades) {
             if (propriedade.equals(listaPropriedade.getTitulo())) {
-                if(listaPropriedade.isDisponivel()) {
+                if (listaPropriedade.isDisponivel()) {
                     System.out.println("Digite a data de checkIn");
                     String dtCheckin = scanner.next();
                     System.out.println("Digite a data de checkOut");
@@ -52,21 +52,15 @@ public class Reserva {
                     listaPropriedade.mudaDisponibilidade();
 
                     System.out.println("Reserva realizada com sucesso!");
-                    MenuUsuario.abrirMenuUsuario(listaPropriedades, listaUsuarios);
-                }
-                else {
+
+                } else {
                     System.out.println("Propriedade não encontrada, por favor verificar se o nome esta correto");
-                    MenuUsuario.abrirMenuUsuario(listaPropriedades, listaUsuarios);
                 }
             }
         }
     }
+
     public Propriedade getNomePropriedade() {
         return propriedade;
-    }
-
-    public static void implementaReserva(List<Propriedade> listaPropriedades) {
-        Reserva reserva = new Reserva(listaPropriedades.get(0), "20-11-2023", "25-11-2023", 900.50f);
-        listaPropriedades.get(0).mudaDisponibilidade();
     }
 }

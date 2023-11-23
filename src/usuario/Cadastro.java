@@ -35,27 +35,18 @@ public class Cadastro {
         String senha = scanner.next();
 
         for (Usuario listaUsuario : listaUsuarios) {
-            System.out.print(listaUsuario.getDados());
             if (listaUsuario.getEmail().equals(email) && listaUsuario.getSenha().equals(senha)) {
                 teste = true;
-
-                System.out.print(listaUsuario.getDados());
                 SessaoUsuario.setUsuarioLogado(listaUsuario);
-
             }
         }
         return teste;
     }
 
-
-
     @SuppressWarnings("empty-statement")
     public static void cadastrarPropriedade(Usuario usuario, List<Propriedade> listaPropriedades, List<Usuario> listaUsuarios) {
 
-
         Scanner scanner = new Scanner(System.in);
-        System.out.println("1-usuario.Cadastro de propriedade.Propriedade");
-
         System.out.println("Digite o título da propriedade");
         String titulo = scanner.next();
         System.out.println("Digite a descrição");
@@ -63,10 +54,10 @@ public class Cadastro {
         System.out.println("Digite a localização");
         String localizacao = scanner.next();
         System.out.println("Digite a capacidade de pessoas");
-        int capacidade = scanner.nextInt();;
+        int capacidade = scanner.nextInt();
+
         System.out.println("Digite o preço por noite");
         float precoNoite = scanner.nextFloat();
-
 
         Propriedade propriedade = new Propriedade(titulo, descricao, localizacao, capacidade, precoNoite);
         usuario.cadastroPropriedadeUsuario(propriedade);
